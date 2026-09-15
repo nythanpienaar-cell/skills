@@ -1,0 +1,13 @@
+{
+  "name": "nythan-skills",
+  "version": "0.1.0",
+  "description": "Set up an AI coding pipeline on any machine, then learn to use it one step at a time.",
+  "author": {
+    "name": "Nythan Pienaar",
+    "url": "https://github.com/nythanpienaar-cell"
+  },
+  "homepage": "https://github.com/nythanpienaar-cell/skills",
+  "repository": "https://github.com/nythanpienaar-cell/skills",
+  "license": "MIT",
+  "keywords": ["pipeline", "setup", "tutorial", "onboarding", "skills"]
+}

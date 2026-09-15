@@ -1,0 +1,4 @@
+# Store text with LF line endings so Windows and macOS checkouts match.
+* text=auto eol=lf
+*.zip binary
+*.png binary

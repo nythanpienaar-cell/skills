@@ -1,0 +1,17 @@
+{
+  "name": "nythan",
+  "owner": {
+    "name": "Nythan Pienaar",
+    "url": "https://github.com/nythanpienaar-cell"
+  },
+  "description": "Nythan Pienaar's skills, as an installable Claude Code plugin.",
+  "plugins": [
+    {
+      "name": "nythan-skills",
+      "source": "./",
+      "description": "Set up an AI coding pipeline on any machine, then learn to use it one step at a time.",
+      "category": "productivity",
+      "keywords": ["pipeline", "setup", "tutorial", "onboarding"]
+    }
+  ]
+}
