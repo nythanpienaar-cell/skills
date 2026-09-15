@@ -9,9 +9,9 @@
     {
       "name": "nythan-skills",
       "source": "./",
-      "description": "Set up an AI coding pipeline on any machine, then learn to use it one step at a time.",
+      "description": "Set up an AI coding pipeline on any machine, learn to use it one step at a time, and keep the code's architecture in shape.",
       "category": "productivity",
-      "keywords": ["pipeline", "setup", "tutorial", "onboarding"]
+      "keywords": ["pipeline", "setup", "tutorial", "onboarding", "architecture"]
     }
   ]
 }

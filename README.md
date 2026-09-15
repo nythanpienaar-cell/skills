@@ -1,6 +1,6 @@
 # Skills
 
-Agent skills for setting up an AI coding pipeline and learning to use it. They're built for anyone, on any machine, starting from nothing.
+Agent skills for setting up an AI coding pipeline, learning to use it, and keeping the code's architecture in shape. They're built for anyone, on any machine, starting from nothing.
 
 ## Install
 
@@ -41,12 +41,17 @@ Pull later changes with `npx skills update`.
 
 1. Run `/pipeline-setup` in your project. It checks your computer, installs what's missing, and writes `docs/Pipeline.md`.
 2. Run `/tutorial` whenever you're not sure what to do next. It coaches you through the pipeline one step at a time.
+3. Run `/establish-architecture` once the project has a plan, to set the structure new code builds to. Run `/audit-architecture` from time to time to find code that has drifted from it.
 
 ## Skills
 
 **User-invoked:** these only run when you type them.
 
 - **[pipeline-setup](./skills/pipeline-setup/SKILL.md):** Checks this computer and project, installs everything the AI coding pipeline needs, and writes `docs/Pipeline.md`.
+- **[establish-architecture](./skills/establish-architecture/SKILL.md):** Designs the project's four-layer architecture foundation (modular monolith, vertical slices, hexagonal ports, deep modules) from its existing plan, so implementation work builds on it.
+- **[audit-architecture](./skills/audit-architecture/SKILL.md):** Audits existing code against that foundation and writes evidence-backed findings, each ready to fix directly or hand to spec, ticket, and ADR skills.
+
+The architecture skills use vocabulary and follow-up commands from [Matt Pocock's skills](https://github.com/mattpocock/skills) (`/codebase-design`, `/grill-with-docs`, `/to-spec`, `/to-tickets`). Install those too for the full flow.
 
 **Model-invoked:** you can type these, or the agent can reach for them when the moment fits.
 
