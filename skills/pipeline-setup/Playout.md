@@ -128,7 +128,7 @@ Playout names identifiers owned by other people, on their release schedules, not
 | Identifier | Owner | Used by |
 |---|---|---|
 | `mattpocock-skills@claude-plugins-official` | plugin marketplace | `SKILLS-MATTPOCOCK` |
-| `<YOUR-SKILLS-REPO>` — **placeholder, not yet created** | the skill's author | `SKILLS-OWN` |
+| `nythanpienaar-cell/skills` (marketplace `nythan`), `nythan-skills@nythan` | the skill's author | `SKILLS-OWN` |
 | `ChromeDevTools/chrome-devtools-mcp`, `chrome-devtools-mcp@chrome-devtools-plugins` | Chrome DevTools team | `MCP-CHROME-DEVTOOLS` |
 | `https://mcp.supabase.com/mcp` | Supabase | `MCP-SUPABASE` |
 | `figma@claude-plugins-official`, `https://mcp.figma.com/mcp` | Figma | `MCP-FIGMA` |
@@ -232,7 +232,7 @@ A short interview, once, near the top. Answers gate whole layers.
 
 | Question | If yes | If no |
 |---|---|---|
-| C1 — Does this project have a user interface? | Enable `design-system`, Playwright, Chrome DevTools MCP, and the Chrome browser requirement; ask C1a | Skip L7 browser tooling, design-system, and C1a |
+| C1 — Does this project have a user interface? | List the `design-system` stage; enable Playwright, Chrome DevTools MCP, and the Chrome browser requirement; ask C1a | Skip L7 browser tooling and C1a; leave the `design-system` stage out of `docs/Pipeline.md` (the skill still arrives with `SKILLS-OWN`) |
 | C1a — *(only if C1 = yes)* Ask in these words: "Figma is a website designers use to draw what an app's screens will look like before it's built. Do you have designs in Figma, or plan to make some? If you've never heard of it, the answer is **no** — screenshots and websites you like work just as well." | Enable `MCP-FIGMA` | Skip `MCP-FIGMA` — design-system still works from screenshots and websites |
 | C2 — Does it need to store data between visits? | Enable Supabase: `SUPABASE-CLI`, `MCP-SUPABASE`, L8 | Skip Supabase entirely |
 | C3 — Does it need to be reachable on the public internet? | Enable Netlify (L8) and `launch-checklist` | Skip Netlify and `launch-checklist` |
@@ -674,14 +674,17 @@ State this table to the user at the moment they pick a non-GitHub tracker. It is
 - `DEGRADES` — there is no pipeline
 
 **`SKILLS-OWN`** — the author's own and modified skills
-- `SCOPE` MACHINE · `NEEDS` NODE, CC-CLI · `GATE` `establish-architecture` always; `design-system` requires C1=yes
-- Both live in `<YOUR-SKILLS-REPO>` (§0.7 placeholder rule — Blocked until the author fills it in).
-  - **`establish-architecture`** — user-invoked. Lays the four-layer architecture (modular monolith, vertical slices, hexagonal ports, deep modules) into a new project. **The setup skill installs it and never runs it.** Its place in the pipeline, for `docs/Pipeline.md`: after `/setup-matt-pocock-skills` (it stops if `docs/agents/` is missing), right after `/to-spec` — which must name the programming language, since the skill writes its scripts in it — and before `design-system` and the first `/to-tickets` → `/implement`. No project setup is needed first. Its rule-checker starts with only built-in outside-world APIs banned, so re-run it after the first ticket that adds a database or other outside library. It leans on `codebase-design`, `domain-modeling`, and `improve-codebase-architecture` from `SKILLS-MATTPOCOCK`. New projects only — existing code is `/improve-codebase-architecture`'s job.
-  - **`design-system`** — the modified BuilderOS skill (`version: 1.1-nb`). Turns screenshots, mockups, Figma links (via `MCP-FIGMA`) and live websites (via `MCP-CHROME-DEVTOOLS`) into `docs/design.md` (for agents) and `docs/design.html` (for the human). **Install this copy, never upstream BuilderOS's** — upstream recommends BuilderOS planning skills that conflict with this pipeline.
-- `DETECT` — each skill's `SKILL.md` exists in the user skills directory, and `design-system`'s frontmatter shows the modified version rather than upstream.
-- `INSTALL` — **AFK**, from `<YOUR-SKILLS-REPO>`. *Install command to be fixed when the repo exists* — either `npx skills add <YOUR-SKILLS-REPO>` with its non-interactive flags, or a plugin marketplace (`claude plugin marketplace add` + `claude plugin install`). Until then, Blocked.
-- **Branch F applies**: an upstream `design-system` already present is a conflicting install — offer to replace it, never delete without confirmation.
-- `DEGRADES` — no architecture foundation for `/implement` to build into; no shared design rules for UI tickets
+- `SCOPE` MACHINE · `NEEDS` CC-CLI · `GATE` always
+- One plugin, `nythan-skills`, from the author's marketplace `nythan` (repo `nythanpienaar-cell/skills`). It bundles this setup skill and the four skills below, so they install together; the project-shape answers decide only which of them `docs/Pipeline.md` lists.
+  - **`tutorial`** — Part 2 in the table at the top: the coaching skill that reads `docs/Pipeline.md`. **The setup skill installs it and never runs it**; the closing report ends by telling the user to type `/tutorial` next.
+  - **`establish-architecture`** — user-invoked. Designs the project's architecture **foundation**: how four layers (modular monolith, vertical slices, hexagonal ports, deep modules) take shape in *this* project, written to `docs/architecture.md` with a pointer section appended to `CLAUDE.md`/`AGENTS.md`. It changes no code, and only writes a slice-generator script if the user asks for one. **The setup skill installs it and never runs it.** Its place in the pipeline, for `docs/Pipeline.md`: once per project, after `/to-spec` and before `design-system` and the first `/to-tickets` → `/implement`. It reads the plan from files (`CONTEXT.md`, ADRs, specs, READMEs), so the spec should be reachable as a file or linked from one. It uses `codebase-design`'s vocabulary from `SKILLS-MATTPOCOCK`.
+  - **`audit-architecture`** — user-invoked. Audits code against the foundation `establish-architecture` wrote and writes evidence-backed findings to `docs/architecture-audits/<date>.md`, each routed to a fix, `/to-spec` → `/to-tickets`, or `/grill-with-docs`. It changes no code. Stops if no foundation exists. For `docs/Pipeline.md`: after tickets have been built, every few tickets.
+  - **`design-system`** — the modified BuilderOS skill (`version: 1.1-nb`, MIT, BuilderOS credited). Turns screenshots, mockups, Figma links (via `MCP-FIGMA`) and live websites (via `MCP-CHROME-DEVTOOLS`) into `docs/design.md` (for agents) and `docs/design.html` (for the human). **Install this copy, never upstream BuilderOS's** — upstream recommends BuilderOS planning skills that conflict with this pipeline.
+- `DETECT` — `claude plugin list --json` shows `nythan-skills` installed and enabled, **or** the session's skill listing contains `tutorial`, `establish-architecture`, `audit-architecture`, and `design-system`, with or without a `nythan-skills:` prefix, and `design-system`'s frontmatter shows `1.1-nb` rather than upstream.
+- `INSTALL` — **AFK**: `claude plugin marketplace add nythanpienaar-cell/skills` (skip if `claude plugin marketplace list` already shows `nythan`), then `claude plugin install nythan-skills@nythan --scope user --yes`. If the marketplace add fails because the repo or name has moved, that is a volatile-identifier case (§0.7) — stop, do not guess a source. `HUMAN` fallback, only when the subcommand is absent: `/plugin marketplace add nythanpienaar-cell/skills`, then `/plugin install nythan-skills@nythan` in the CLI, then `/reload-plugins`.
+- `VERIFY` — `claude plugin list --json`, then the **restart batch** (§0.4), shared with `SKILLS-MATTPOCOCK`.
+- **Branch F applies**: an older manual copy of any of these four (for example under `~/.claude/skills/`), or an upstream BuilderOS `design-system`, is a duplicate or conflicting install — offer to remove it, never delete without confirmation.
+- `DEGRADES` — no `/tutorial` coaching; no architecture foundation for `/implement` to build into or audit against; no shared design rules for UI tickets
 
 **`SKILLS-BUILDEROS`** — launch-checklist (unmodified upstream)
 - `SCOPE` PROJECT · `NEEDS` NODE · `GATE` C3=yes
@@ -701,7 +704,7 @@ The skills hardcode none of this. They read files. Absent files mean the skills 
 
 | File | Written by | Read by | Contains |
 |---|---|---|---|
-| `docs/agents/issue-tracker.md` | `/setup-matt-pocock-skills` | `to-tickets`, `triage`, `to-spec`, `code-review`, `wayfinder`, `qa` | Which tracker, exact `gh`/`glab` conventions, the PRs-as-request-surface flag, **plus the §8.6 probe results** |
+| `docs/agents/issue-tracker.md` | `/setup-matt-pocock-skills` | `to-tickets`, `triage`, `to-spec`, `code-review`, `wayfinder` | Which tracker, exact `gh`/`glab` conventions, the PRs-as-request-surface flag, **plus the §8.6 probe results** |
 | `docs/agents/triage-labels.md` | `/setup-matt-pocock-skills` | `triage`, `to-tickets` | Canonical role → actual label string mapping |
 | `docs/agents/domain.md` | `/setup-matt-pocock-skills` | domain-modeling, codebase-design | Single- vs multi-context layout and consumer rules |
 | `CLAUDE.md` → `## Agent skills` | `/setup-matt-pocock-skills` | every session, automatically | Three one-line summaries pointing at the files above |
@@ -827,7 +830,7 @@ The setup skill's final report. Every line is a real check, not a recollection o
 | 32 | Secrets hygiene *(if L8/L9)* | read `.gitignore` | `.env` and `.sandcastle/.env` both excluded |
 | 33 | Automation gate *(automations run, E≠none)* | `RALPH-READY` | labels, config, auto-commit all confirmed |
 | 34 | Git Bash *(windows)* | `GIT-BASH` detect | `bin/bash.exe` under Git's install root |
-| 35 | Own skills | `SKILLS-OWN` detect | `establish-architecture` present; modified `design-system` present *(if C1)* |
+| 35 | Own skills | `SKILLS-OWN` detect | `nythan-skills` enabled: `tutorial`, `establish-architecture`, `audit-architecture`, modified `design-system` (`1.1-nb`), no duplicates |
 | 36 | Context7 MCP | `claude mcp list` | `context7` listed |
 | 37 | Figma MCP *(if C1a)* | `claude mcp list` | `figma` connected |
 | 38 | Supabase MCP *(if C2)* | `claude mcp list` | `supabase` connected |

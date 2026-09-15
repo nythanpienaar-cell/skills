@@ -31,7 +31,7 @@ Done when you can name every stage this project has, and every tool it left out.
 
 Use **evidence**, not memory or guesses. For each stage in order, check whether its *Writes* column exists in the project: the files, the tickets in the tracker (listed with the tracker's own CLI when *Project shape* names one), and the commits. Stage 0 has no output. Treat it as done once any later stage has evidence.
 
-The **current stage** is the first one whose evidence is missing or incomplete. Stage 7 repeats, once per open ticket, so its next step is the next open ticket, and stage 8 follows every ticket. Put the evidence in front of the user in one or two lines ("I see a spec and 6 tickets, 2 closed") and ask if that's right. If they correct you, go with their answer.
+The **current stage** is the first one whose evidence is missing or incomplete. Stage 7 repeats, once per open ticket, so its next step is the next open ticket (each `/implement` run already reviews its own ticket), and stage 8 comes before a branch is merged. Put the evidence in front of the user in one or two lines ("I see a spec and 6 tickets, 2 closed") and ask if that's right. If they correct you, go with their answer.
 
 Done when you've named one current stage, backed it with evidence, and the user has confirmed it.
 

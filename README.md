@@ -42,6 +42,7 @@ Pull later changes with `npx skills update`.
 1. Run `/pipeline-setup` in your project. It checks your computer, installs what's missing, and writes `docs/Pipeline.md`.
 2. Run `/tutorial` whenever you're not sure what to do next. It coaches you through the pipeline one step at a time.
 3. Run `/establish-architecture` once the project has a plan, to set the structure new code builds to. Run `/audit-architecture` from time to time to find code that has drifted from it.
+4. If the project has screens, run `/design-system` with a screenshot or mockup to set its visual rules.
 
 ## Skills
 
@@ -56,7 +57,8 @@ The architecture skills use vocabulary and follow-up commands from [Matt Pocock'
 **Model-invoked:** you can type these, or the agent can reach for them when the moment fits.
 
 - **[tutorial](./skills/tutorial/SKILL.md):** Plain-English coaching for the next step of the pipeline. Type `/tutorial`, and once a project has started coaching, it picks up again by itself after each stage.
+- **[design-system](./skills/design-system/SKILL.md):** Turns screenshots, mockups, Figma links, or live websites into `docs/design.md` (for the agent) and `docs/design.html` (for you). A modified version of [BuilderOS](https://github.com/BuildGreatProducts/builder-os)'s skill, trimmed to fit this pipeline.
 
 ## License
 
-[MIT](./LICENSE)
+[MIT](./LICENSE). `design-system` is adapted from BuilderOS's MIT-licensed skill; its original author credit is kept in the skill's frontmatter.

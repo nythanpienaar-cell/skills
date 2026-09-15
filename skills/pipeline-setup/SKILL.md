@@ -75,6 +75,6 @@ Done when the recheck is clear, or the run is paused — by the user, or on its 
 
 ## 5. Write docs/Pipeline.md
 
-Create `docs/` if it does not exist. Read [PIPELINE-FORMAT.md](PIPELINE-FORMAT.md) and write `docs/Pipeline.md` in exactly that format. Then give the closing report (§12).
+Create `docs/` if it does not exist. Read [PIPELINE-FORMAT.md](PIPELINE-FORMAT.md) and write `docs/Pipeline.md` in exactly that format. Then give the closing report (§12), ending with one line: type `/tutorial` to be coached through the first step.
 
 Done when `docs/Pipeline.md` exists; it opens with "Everything is installed."; every not-needed component appears under *Not installed for this project*; every stage and tool it lists is installed; and no `{placeholder}` survives.

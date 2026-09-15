@@ -24,7 +24,7 @@ The exact shape of `docs/Pipeline.md`, written in step 5. Its reader is the Part
 | Computer basics | Ready | Node {version}, Git {version}{, Git Bash — Windows only} |
 | Claude Code | Ready | CLI {version}{; desktop app} |
 | GitHub | Ready | Signed in as {login} · repo {owner/name} ({private/public}) · labels ready |
-| Pipeline skills | Ready | Matt Pocock bundle · establish-architecture{ · design-system}{ · launch-checklist} |
+| Pipeline skills | Ready | Matt Pocock bundle · Nythan bundle (tutorial, establish-architecture, audit-architecture{, design-system}){ · launch-checklist} |
 | MCP servers | Ready | Context7{ · Chrome DevTools}{ · Figma}{ · Supabase} |
 | Project setup | Ready | `docs/agents/` · agent skills block in `{CLAUDE.md/AGENTS.md}` |
 | Online services | {Ready/Not used} | {Supabase project linked}{ · Netlify site linked} |
@@ -76,11 +76,11 @@ Source for the *Stages* table, in pipeline order. **Who starts it**: *you type i
 | 1 | Wayfinder | `/wayfinder` | tracker supports it | Big or unclear ideas only. Resolves open decisions one at a time, then goes straight to 3 — it replaces the grill session. |
 | 2 | Grill session | `/grill-with-docs` | always | Every project that didn't use Wayfinder. Interviews you until nothing about the idea is ambiguous. |
 | 3 | Spec | `/to-spec` | always | Every project. Turns the shared understanding into checkable requirements. |
-| 4 | Architecture foundation | `/establish-architecture` | always | Once per new project, right after the spec and before any code — the foundation comes first. **The spec must name the programming language**, since the skill writes its scripts in it. Needs `/setup-matt-pocock-skills` already run. |
+| 4 | Architecture foundation | `/establish-architecture` | always | Once per project, right after the spec and before any code: it designs the structure every feature is built to and writes it to `docs/architecture.md`. It changes no code. |
 | 5 | Design system | `/design-system` | has screens | After the architecture, before tickets, so every screen follows the same visual rules. |
 | 6 | Tickets | `/to-tickets` | always | Every project. Slices the spec into small tickets that each work end to end. |
-| 7 | Build each ticket | `/implement`, test-first with `/tdd` | always | Every ticket: test first, minimum code to pass, verify, commit and push. |
-| 8 | Review | `/code-review` | always | After each ticket or branch, against the project's standards and the ticket's spec. |
+| 7 | Build each ticket | `/implement` | always | Every ticket: builds test-first with `/tdd`, runs the tests, reviews its own work with `/code-review`, then commits to the current branch. It does not push. |
+| 8 | Review | `/code-review` | always | Before merging a branch: review everything since the branch started, against the project's standards and the ticket's spec. |
 | 9 | Triage | `/triage` | `triage` installed | Whenever new issues arrive. |
 | 10 | Launch | `/launch-checklist` | public on the internet | Once, at the end, before going live. |
 | 11 | Automation | Ralph Loop{ · Sandcastle} | automation is `ralph` or `sandcastle` | Running stage 7 unattended — only after doing it by hand. |
@@ -101,7 +101,10 @@ Source for the *Stages* table, in pipeline order. **Who starts it**: *you type i
 | `/prototype` | A throwaway build to answer a design question | 1, 5 | always |
 | `/research` | Reading official sources and saving the findings | 1, 2 | always |
 | `/domain-modeling`, `/codebase-design` | The project's shared vocabulary and module design | 2, 4, 7 | always |
-| `/improve-codebase-architecture` | Untangling code that has drifted from the architecture | after 7, every few days | always |
+| `/audit-architecture` | Finds code that has drifted from `docs/architecture.md` and writes findings you can fix or turn into tickets | after 7, every few tickets | stage 4 has run |
+| `/improve-codebase-architecture` | Surveys the code for modules worth deepening and shows them as a visual report | after 7, every few days | always |
+| `/wizard` | Turns steps only you can do (dashboards, secrets, sign-ups) into a guided script | 7, 10 | always |
+| `/resolving-merge-conflicts` | Works through a merge conflict by what each side meant | 7, 8 | always |
 | Docker | Runs Sandcastle's agents inside sealed-off containers, so they can't touch the rest of the computer | 11 | automation is `sandcastle` |
 | Sandcastle | Runs unattended agents on tickets, each inside its own container | 11 | automation is `sandcastle` |
 | Claude Code token | Lets Sandcastle's agents use your Claude plan; stored only in `.sandcastle/.env` | 11 | automation is `sandcastle` |
@@ -110,8 +113,8 @@ Source for the *Stages* table, in pipeline order. **Who starts it**: *you type i
 
 | Rule | Applies when |
 |---|---|
-| Commit and push after every finished ticket whose tests pass. | auto-commit was accepted |
+| Push after every ticket `/implement` commits. | auto-commit was accepted |
 | `docs/design.md` is the source of truth for every screen; change it there before building against a new value. | has screens |
-| Start every feature with the scaffold command `/establish-architecture` wrote, and keep the boundary check passing. | after stage 4 has run |
-| After a ticket adds a database or another outside tool, re-run `/establish-architecture` so the rule-checker watches for it too. | after stage 4 has run |
+| Build every feature in the slice shape `docs/architecture.md` describes. Where it leaves a choice open, raise it rather than decide silently; a decision worth keeping becomes an ADR. | after stage 4 has run |
+| Start each new feature with the slice script `/establish-architecture` wrote. | a slice script was written in stage 4 |
 | Never put keys or passwords in the repo — they go in `.env`, which Git ignores. | remembers information or public |
