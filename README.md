@@ -2,14 +2,38 @@
 
 Agent skills for setting up an AI coding pipeline, learning to use it, and keeping the code's architecture in shape. They're built for anyone, on any machine, starting from nothing.
 
+## Before you start
+
+You need **Claude Code**, installed and signed in with a plan that includes it: the desktop app ([claude.ai/download](https://claude.ai/download)) or the terminal version ([setup guide](https://code.claude.com/docs/en/setup)). That's all. `/pipeline-setup` installs everything else the pipeline needs, including [Matt Pocock's skills](https://github.com/mattpocock/skills).
+
 ## Install
 
-Pick **one** of these. Installing both gives you every skill twice.
+Pick **one** of these routes. Installing two gives you every skill twice. Whichever you pick, **restart Claude Code afterwards**: new skills load in the next session.
+
+<details open>
+<summary><strong>Claude Code desktop app (easiest)</strong></summary>
+
+Open the **Code** tab and send Claude this message:
+
+```
+Install the nythan-skills plugin for me: run `claude plugin marketplace add nythanpienaar-cell/skills`, then `claude plugin install nythan-skills@nythan --scope user`. If the `claude` command isn't found, install the Claude Code command-line tool first, following Anthropic's setup guide.
+```
+
+Don't type `/plugin …` into the desktop chat box: slash commands like that only work in the terminal version, and in the app nothing happens.
+
+</details>
 
 <details>
-<summary><strong>Claude Code (recommended)</strong></summary>
+<summary><strong>Claude Code in a terminal</strong></summary>
 
-Run these two commands inside a Claude Code session:
+In a normal terminal:
+
+```bash
+claude plugin marketplace add nythanpienaar-cell/skills
+claude plugin install nythan-skills@nythan --scope user
+```
+
+Or from inside a running `claude` session:
 
 ```
 /plugin marketplace add nythanpienaar-cell/skills
@@ -39,7 +63,7 @@ Pull later changes with `npx skills update`.
 
 ## How to use them
 
-1. Run `/pipeline-setup` in your project. It checks your computer, installs what's missing, and writes `docs/Pipeline.md`.
+1. Open your project folder in Claude Code (a new, empty folder is fine) and run `/pipeline-setup`. It checks your computer, installs what's missing, and writes `docs/Pipeline.md`.
 2. Run `/tutorial` whenever you're not sure what to do next. It coaches you through the pipeline one step at a time.
 3. Run `/establish-architecture` once the project has a plan, to set the structure new code builds to. Run `/audit-architecture` from time to time to find code that has drifted from it.
 4. If the project has screens, run `/design-system` with a screenshot or mockup to set its visual rules.
@@ -52,7 +76,7 @@ Pull later changes with `npx skills update`.
 - **[establish-architecture](./skills/establish-architecture/SKILL.md):** Designs the project's four-layer architecture foundation (modular monolith, vertical slices, hexagonal ports, deep modules) from its existing plan, so implementation work builds on it.
 - **[audit-architecture](./skills/audit-architecture/SKILL.md):** Audits existing code against that foundation and writes evidence-backed findings, each ready to fix directly or hand to spec, ticket, and ADR skills.
 
-The architecture skills use vocabulary and follow-up commands from [Matt Pocock's skills](https://github.com/mattpocock/skills) (`/codebase-design`, `/grill-with-docs`, `/to-spec`, `/to-tickets`). Install those too for the full flow.
+The architecture skills use vocabulary and follow-up commands from [Matt Pocock's skills](https://github.com/mattpocock/skills) (`/codebase-design`, `/grill-with-docs`, `/to-spec`, `/to-tickets`). `/pipeline-setup` installs those for you; if you skip it, install them yourself for the full flow.
 
 **Model-invoked:** you can type these, or the agent can reach for them when the moment fits.
 
