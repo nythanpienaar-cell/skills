@@ -35,7 +35,7 @@ Same design system, two audiences: the agent reads the `.md`, the human opens th
 This skill's entire remit is producing `docs/design.md` and `docs/design.html`. Nothing else.
 
 **This skill must NEVER:**
-- Create, edit, or suggest editing `docs/PRD.md`, `docs/context.md`, `docs/VISION.md`, `docs/product-vision.md`, `docs/product-roadmap.md`, or any GitHub issue.
+- Create, edit, or suggest editing the project's plan: `CONTEXT.md` or `CONTEXT-MAP.md`, ADRs, `docs/architecture.md`, anything under `docs/agents/`, the spec, or any issue on the tracker. The same goes for older planning files if a project has them (`docs/PRD.md`, `docs/VISION.md`, `docs/product-vision.md`, `docs/product-roadmap.md`).
 - Recommend, mention, or link to the BuilderOS Product Planner, Build MVP, or Build Loop skills. Those conflict with this project's established pipeline and must not be surfaced.
 - Write application code, stylesheets, or components into the project. It describes the design system; the project's own build steps implement it.
 
@@ -45,7 +45,7 @@ If the founder asks for any of the above, tell them it's outside this skill's sc
 
 - Founder shares a screenshot, mockup, Figma file, inspiration board, or live website and wants it captured as a structured design system
 - Founder needs design tokens a coding agent can implement without guessing
-- Founder wants a precise token spec to supplement an existing product vision or PRD
+- Founder wants a precise token spec to supplement an existing spec or product plan
 - Fully standalone — does not require any other document
 
 ## Modes
@@ -105,9 +105,15 @@ Then summarize what you saw to the founder in 5–8 tight bullets. Be specific. 
 
 ## Step 2: Context Questions
 
-Ask questions one at a time. Offer 3 tailored suggestions for each (drawn from your Step 1 analysis). Carry every answer forward as context for later suggestions. If `docs/context.md` or `docs/PRD.md` exists, read it and skip questions already covered there — acknowledge what's known instead of re-asking. Read those files for context only; never edit them.
+Ask questions one at a time. Offer 3 tailored suggestions for each (drawn from your Step 1 analysis). Carry every answer forward as context for later suggestions. Before asking, read what the project already says about itself, and skip questions already covered there — acknowledge what's known instead of re-asking:
 
-1. **What is this design for?** — Product name, what it does, who uses it. One sentence. (Skip if `docs/context.md` or `docs/PRD.md` already answers this.)
+- `CONTEXT.md` at the project root (or the `CONTEXT.md` files a root `CONTEXT-MAP.md` points to). Match the name exactly, in capitals.
+- The spec. It is usually an issue on the tracker, not a file: if `docs/agents/issue-tracker.md` exists, follow its commands to find and read the spec issue (ask which one if several fit).
+- Older planning files, if present: `docs/PRD.md`, `docs/context.md`.
+
+Read these for context only; never edit them.
+
+1. **What is this design for?** — Product name, what it does, who uses it. One sentence. (Skip if the context or spec above already answers this.)
 2. **Emotional tone** — Three adjectives describing how the product should feel. Suggest from the mood you observed.
 3. **Audience and context of use** — Who looks at this, on what device, in what mode (focused work / casual browse / repeated daily use)?
 4. **Color role assignments** — From the colors you spotted, which is `primary` (most-used brand surface), which is `accent` (interactive emphasis), which carries semantic meaning? Light mode, dark mode, or both? Suggest a mapping.
@@ -300,7 +306,7 @@ After writing both files, say:
 Then stop. Do not suggest next steps, do not offer to update any other document, and do not recommend any other skill.
 
 **Specifically forbidden in this handoff:**
-- Offering to update `docs/PRD.md` or any other pipeline document. The PRD is owned by the project's own PRD stage. If the founder wants the PRD to reference these tokens, they will do that through their own pipeline.
+- Offering to update the spec, `CONTEXT.md`, or any other pipeline document. The spec is owned by the project's own spec stage (`/to-spec`). If the founder wants the spec to reference these tokens, they will do that through their own pipeline.
 - Mentioning, recommending, or linking to the BuilderOS Product Planner, Build MVP, or Build Loop skills, or the BuilderOS repository. This project's pipeline already covers planning, work breakdown, and implementation.
 
 If the founder asks "what's next?", the correct answer is a single line pointing back at their own pipeline:

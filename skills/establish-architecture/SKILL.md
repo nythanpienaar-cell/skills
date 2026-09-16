@@ -12,7 +12,7 @@ Design the project's architecture **foundation**: a written structure showing ho
 
 This skill designs. The code stays exactly as it is — nothing is moved, refactored, or retrofitted. Finding where existing code departs from the foundation is `/audit-architecture`'s separate job. The skill settles no open choice on the user's behalf either: where the plan leaves something undecided, the foundation names the question and leaves it open.
 
-**Sourced.** Every statement the foundation makes about the project cites the file it came from. What you cannot source, you do not state. The foundation adds structure; it never invents facts, reasons, or history.
+**Sourced.** Every statement the foundation makes about the project cites the file or issue it came from. What you cannot source, you do not state. The foundation adds structure; it never invents facts, reasons, or history.
 
 ## 1. Preflight
 
@@ -29,11 +29,12 @@ The project already has a plan, whether or not it calls it one. Read all of it b
 - **Vocabulary** — `CONTEXT.md`, `CONTEXT-MAP.md`, any glossary. Note every term, and every _Avoid_ list.
 - **Decisions** — every ADR, wherever the project keeps them.
 - **Intent** — PRDs, specs, roadmaps, READMEs, build or workflow docs, the instructions file itself.
+- **Specs on the issue tracker** — a spec is often an issue, not a file. If `docs/agents/issue-tracker.md` exists, follow its commands to find the spec issues (for example, open issues labelled `ready-for-agent` that have a *Problem Statement* and *Solution*) and read each one with its comments. If more than one could be the current spec, ask the user which. Cite an issue by its id or URL.
 - **Existing structure** — how source is sorted today, and which modules already hold the core logic.
 - **Framework constraints** — locations the language or framework imposes: where routes, pages, entry points, and handlers must live to be reachable at all.
 - **Test convention** — where tests sit, how they are named, and any rule about when they are written.
 
-Done when every document above has been read, and you can list what the plan already decides about structure, each item with its source.
+Done when every document and spec issue above has been read, and you can list what the plan already decides about structure, each item with its source.
 
 ## 3. Design the foundation
 
@@ -92,7 +93,7 @@ The standard new work builds on. Existing code keeps its current shape. Later de
 <Each question · what it affects · the user's answer, if they gave one during design>
 
 ## Sources
-<Every file this foundation draws on>
+<Every file and issue this foundation draws on>
 ```
 
 Done when the file matches the draft the user approved.

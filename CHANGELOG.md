@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.1
+
+- `establish-architecture` reads the spec from the issue tracker (`/to-spec` publishes it as an issue, not a file) and can cite issues as sources.
+- `design-system` reads `CONTEXT.md` and the spec issue for context instead of `docs/context.md` and `docs/PRD.md`, and never edits either.
+
 ## 0.3.0
 
 - Add `design-system` (modified from BuilderOS, MIT); its closing line now points at `/to-tickets`.
